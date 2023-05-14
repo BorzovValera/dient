@@ -83,29 +83,82 @@ mysqli_close($conn);
         <li><a href = "#">Строй материалы</a></li>
         <li><a href = "#">Сантехника</a></li>
       </ul>
-        <div class="pro-container">
-        <?php foreach($products as $product):  ?>
-            <div class="pro" onclick="window.location.href='sproduct.html';">
-              <img src="
-              <?php
-              foreach(explode(',', $product['img']) as $ing)
-              echo $ing;
-        
-              ?>
-              " alt="no picture">
-                <div class="des">
-                  <span>MAKITA</span>
-                  <h5><?php foreach(explode(',', $product['nazvanie']) as $ing) 
-                  echo $ing;
-                  ?>
-                </h5>
-                  <h4><?php foreach(explode(',', $product['price']) as $ing) 
-                  echo $ing;
-        endforeach;
-                  ?></h4>
-                </div>
-                <a href="#"><i class="fa fa-shopping-cart cart"></i></a>
+
+
+      <?php
+
+include('dbconnect.php');
+
+$sql = 'SELECT id, nazvanie, category, price, img, nalichie, opisanie FROM tovar';
+
+$result = mysqli_query($conn, $sql);
+
+$products = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+$limit = 1;
+
+// определяем текущую страницу
+if (isset($_GET['page'])) {
+    $page = $_GET['page'];
+} else {
+    $page = 1;
+}
+
+// определяем количество записей в базе данных
+$count_query = "SELECT COUNT(*) FROM tovar";
+$count_result = mysqli_query($conn, $count_query);
+$count_row = mysqli_fetch_row($count_result);
+$count = $count_row[0];
+
+// определяем количество страниц
+$pages = ceil($count / $limit);
+
+//очищаем результат в переменноё result
+mysqli_free_result($result);
+
+// разрываем соединение
+mysqli_close($conn);
+
+?>
+
+
+<!DOCTYPE html>
+<html lang="RU">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Галерея дверей</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container my-5">
+    <h1 class="text-center my-5">Товары</h1>
+
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+      <?php foreach ($products as $product) : ?>
+        <div class="col">
+          <div class="card h-100">
+            <img src="<?php foreach (explode(',', $product['img']) as $ing) echo $ing; ?>" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title"><?php foreach (explode(',', $product['nazvanie']) as $ing) echo $ing; ?></h5>
+              <p class="card-text"><?php foreach (explode(',', $product['price']) as $ing) echo $ing; ; ?><p>Рублей</p></p>
+              <button type="button" class="btn btn-outline-primary">В корзину</button>
             </div>
+          </div>
+        </div>
+      <?php endforeach; ?>
+    </div>
+  </div>
+
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
 
             
 
@@ -122,7 +175,7 @@ mysqli_close($conn);
           <img class="logo" src="img/logomin.png">
           <h4>Контакты</h4>
           <p><strong>Адрес:</strong> Г.Москва Владыкино, ул.Хачатуряна д.17с2</p>
-          <p><strong>Телефон:</strong> +7 926 (289) 05 43</p>
+          <p><strong>Телефон:</strong> +7 (926) 289 05 43</p>
           <p><strong>Склад:</strong> Г.Лобня ул.Маяковского д.23</p>
         </div>
 
