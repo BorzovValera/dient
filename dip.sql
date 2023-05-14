@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.3
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Хост: 127.0.0.1:3306
--- Время создания: Май 14 2023 г., 14:28
--- Версия сервера: 5.7.38
--- Версия PHP: 7.4.29
+-- Хост: 127.0.0.1
+-- Время создания: Май 14 2023 г., 15:27
+-- Версия сервера: 10.4.28-MariaDB
+-- Версия PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,13 +29,21 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `tovar` (
   `id` int(11) NOT NULL,
-  `nazvanie` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `category` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nazvanie` varchar(255) NOT NULL,
+  `category` varchar(255) NOT NULL,
   `price` int(11) NOT NULL,
-  `img` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `img` varchar(255) NOT NULL,
   `nalichie` int(11) NOT NULL,
-  `opisanie` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `opisanie` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `tovar`
+--
+
+INSERT INTO `tovar` (`id`, `nazvanie`, `category`, `price`, `img`, `nalichie`, `opisanie`) VALUES
+(1, 'Дрель', 'Инструменты', 300, 'img/product.jpg', 3, 'Мне его не дали'),
+(2, 'Шуруповёрт', 'Инструменты', 600, 'img/minproduct.jpg', 8, 'Мне его тоже не дали');
 
 --
 -- Индексы сохранённых таблиц
@@ -55,7 +63,7 @@ ALTER TABLE `tovar`
 -- AUTO_INCREMENT для таблицы `tovar`
 --
 ALTER TABLE `tovar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
