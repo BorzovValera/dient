@@ -1,3 +1,40 @@
+<?php
+
+include('dbconnect.php');
+
+$sql = 'SELECT id, nazvanie, category, price, img, nalichie, opisanie FROM tovar';
+
+$result = mysqli_query($conn, $sql);
+
+$products = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+$limit = 1;
+
+// определяем текущую страницу
+if (isset($_GET['page'])) {
+    $page = $_GET['page'];
+} else {
+    $page = 1;
+}
+
+// определяем количество записей в базе данных
+$count_query = "SELECT COUNT(*) FROM tovar";
+$count_result = mysqli_query($conn, $count_query);
+$count_row = mysqli_fetch_row($count_result);
+$count = $count_row[0];
+
+// определяем количество страниц
+$pages = ceil($count / $limit);
+
+//очищаем результат в переменноё result
+mysqli_free_result($result);
+
+// разрываем соединение
+mysqli_close($conn);
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="RU">
 
@@ -14,198 +51,17 @@
     <h1 class="text-center my-5">ГАЛЕРЕЯ ДВЕРЕЙ</h1>
 
     <div class="row row-cols-1 row-cols-md-4 g-4">
-      <div class="col">
-        <div class="card h-100">
-          <img src="image1.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Image Title 1</h5>
-            <p class="card-text">Image Description 1</p>
+      <?php foreach ($products as $product) : ?>
+        <div class="col">
+          <div class="card h-100">
+            <img src="<?php foreach (explode(',', $product['img']) as $ing) echo $ing; ?>" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title"><?php foreach (explode(',', $product['nazvanie']) as $ing) echo $ing; ?></h5>
+              <p class="card-text"><?php foreach (explode(',', $product['price']) as $ing) echo $ing; ; ?></p>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="col">
-        <div class="card h-100">
-          <img src="image2.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Image Title 2</h5>
-            <p class="card-text">Image Description 2</p>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Continue with 18 more cards here... -->
-      <div class="col">
-        <div class="card h-100">
-          <img src="image3.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Image Title 2</h5>
-            <p class="card-text">Image Description 2</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100">
-          <img src="image4.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Image Title 2</h5>
-            <p class="card-text">Image Description 2</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100">
-          <img src="image5.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Image Title 2</h5>
-            <p class="card-text">Image Description 2</p>
-          </div>
-        </div>
-      </div>
-     <div class="col">
-        <div class="card h-100">
-          <img src="image1.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Image Title 1</h5>
-            <p class="card-text">Image Description 1</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="card h-100">
-          <img src="image2.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Image Title 2</h5>
-            <p class="card-text">Image Description 2</p>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Continue with 18 more cards here... -->
-      <div class="col">
-        <div class="card h-100">
-          <img src="image3.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Image Title 2</h5>
-            <p class="card-text">Image Description 2</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100">
-          <img src="image4.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Image Title 2</h5>
-            <p class="card-text">Image Description 2</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100">
-          <img src="image5.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Image Title 2</h5>
-            <p class="card-text">Image Description 2</p>
-          </div>
-        </div>
-      </div>
-<div class="col">
-        <div class="card h-100">
-          <img src="image1.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Image Title 1</h5>
-            <p class="card-text">Image Description 1</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="card h-100">
-          <img src="image2.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Image Title 2</h5>
-            <p class="card-text">Image Description 2</p>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Continue with 18 more cards here... -->
-      <div class="col">
-        <div class="card h-100">
-          <img src="image3.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Image Title 2</h5>
-            <p class="card-text">Image Description 2</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100">
-          <img src="image4.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Image Title 2</h5>
-            <p class="card-text">Image Description 2</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100">
-          <img src="image5.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Image Title 2</h5>
-            <p class="card-text">Image Description 2</p>
-          </div>
-        </div>
-      </div>
-<div class="col">
-        <div class="card h-100">
-          <img src="image1.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Image Title 1</h5>
-            <p class="card-text">Image Description 1</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="card h-100">
-          <img src="image2.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Image Title 2</h5>
-            <p class="card-text">Image Description 2</p>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Continue with 18 more cards here... -->
-      <div class="col">
-        <div class="card h-100">
-          <img src="image3.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Image Title 2</h5>
-            <p class="card-text">Image Description 2</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100">
-          <img src="image4.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Image Title 2</h5>
-            <p class="card-text">Image Description 2</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100">
-          <img src="image5.jpg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Image Title 2</h5>
-            <p class="card-text">Image Description 2</p>
-          </div>
-        </div>
-      </div>
+      <?php endforeach; ?>
     </div>
   </div>
 

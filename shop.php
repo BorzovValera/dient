@@ -8,11 +8,32 @@ $result = mysqli_query($conn, $sql);
 
 $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
+$limit = 1;
+
+// определяем текущую страницу
+if (isset($_GET['page'])) {
+    $page = $_GET['page'];
+} else {
+    $page = 1;
+}
+
+// определяем количество записей в базе данных
+$count_query = "SELECT COUNT(*) FROM tovar";
+$count_result = mysqli_query($conn, $count_query);
+$count_row = mysqli_fetch_row($count_result);
+$count = $count_row[0];
+
+// определяем количество страниц
+$pages = ceil($count / $limit);
+
 //очищаем результат в переменноё result
 mysqli_free_result($result);
 
 // разрываем соединение
 mysqli_close($conn);
+
+
+
 
 ?>
 
@@ -76,10 +97,12 @@ mysqli_close($conn);
                   <span>MAKITA</span>
                   <h5><?php foreach(explode(',', $product['nazvanie']) as $ing) 
                   echo $ing;
-        endforeach;
                   ?>
                 </h5>
-                  <h4>3999р</h4>
+                  <h4><?php foreach(explode(',', $product['price']) as $ing) 
+                  echo $ing;
+        endforeach;
+                  ?></h4>
                 </div>
                 <a href="#"><i class="fa fa-shopping-cart cart"></i></a>
             </div>
@@ -89,9 +112,9 @@ mysqli_close($conn);
       </section>
 
       <section id="pagination" class="section-p1">
-        <a  href="#">1</a>
-        <a  href="#">2</a>
-        <a  href="#"><i class="fal fa-long-arrow-alt-right"></i></a>
+     <?php for ($i = 1; $i <= $pages; $i++) {
+    echo "<a href='?page=$i'>$i</a> ";
+} ?>
       </section>
 
       <footer class="section-p1">
