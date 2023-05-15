@@ -69,7 +69,7 @@ mysqli_close($conn);
 
         <div>
           <ul id = "navbar">
-            <li><a href = "index.html">Главная</a></li>
+            <li><a href = "index.php">Главная</a></li>
             <li><a class="active" href = "shop.html">Каталог</a></li>
             <li><a href = "blog.html">Блог</a></li>
             <li><a href = "about.html">О нас</a></li>

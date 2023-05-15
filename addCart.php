@@ -23,8 +23,19 @@ if ($result) {
     $nalichie = $_POST['nalichie']; // Пример значения наличия
     $price = $_POST['price']; // Пример значения цены
 
-    $sql = "INSERT INTO cart (productId, user_Id) VALUES ($productId, $userId) ON DUPLICATE KEY UPDATE quantity = quantity + 1";
-    mysqli_query($conn, $sql);
+    $sql = "SELECT * FROM cart WHERE productId = $productId AND user_Id = $userId";
+$result = mysqli_query($conn, $sql);
+
+if (mysqli_num_rows($result) > 0) {
+  // Обновление количества (quanty) для существующей записи
+  $sql = "UPDATE cart SET quanty = quanty + 1 WHERE productId = $productId AND user_Id = $userId";
+  mysqli_query($conn, $sql);
+} else {
+  // Вставка новой записи в таблицу cart
+  $sql = "INSERT INTO cart (productId, user_Id, quanty) VALUES ($productId, $userId, 1)";
+  mysqli_query($conn, $sql);
+}
+
 
     // Перенаправление пользователя на страницу корзины или другую страницу
     header('Location: cart.php');

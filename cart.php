@@ -6,8 +6,11 @@ include('dbconnect.php');
 $userId = $_SESSION['userId'];
 
 // Запрос для получения товаров из корзины
-$sql = "SELECT c.*, t.img, t.nazvanie, t.price, t.nalichie FROM cart c JOIN tovar t ON c.productId = t.id WHERE c.user_Id = '$userId'";
+$sql = "SELECT c.*, t.img, t.nazvanie, t.price, c.quanty FROM cart c JOIN tovar t ON c.productId = t.id WHERE c.user_Id = '$userId'";
+
 $result = mysqli_query($conn, $sql);
+
+$totalPrice = 0;
 
 ?>
 
@@ -33,7 +36,7 @@ $result = mysqli_query($conn, $sql);
 
         <div>
           <ul id = "navbar">
-            <li><a href = "index.html">Главная</a></li>
+            <li><a href = "index.php">Главная</a></li>
             <li><a href = "shop.php">Каталог</a></li>
             <li><a href = "blog.html">Блог</a></li>
             <li><a href = "about.html">О нас</a></li>
@@ -65,21 +68,39 @@ $result = mysqli_query($conn, $sql);
             <tbody>
                 <?php while ($row = mysqli_fetch_assoc($result)) : ?>
                     <tr>
-                        <td><a href=""><i class="far fa-times-circle"></i></a></td>
+                    <td>
+  <form method="POST" action="remove_from_cart.php">
+    <input type="hidden" name="productId" value="<?php echo $row['productId']; ?>">
+    <button type="submit" name="action" value="remove"><i class="far fa-times-circle"></i></button>
+  </form>
+</td>
                         <td><img src="<?php echo $row['img']; ?>" alt=""></td>
-                        <td><?php echo $row['nazvanie']; ?></td>
-                        <td><input type="number" value="<?php echo $row['nalichie']; ?>"></td>
-                        <td><?php echo $row['price']; ?>р</td>
+                        <td><a href="product.php?id=<?php echo $row['productId']; ?>"><?php echo $row['nazvanie']; ?></a></td>
+                        <td>
+  <form method="POST" action="update_quanty.php">
+    <input type="hidden" name="productId" value="<?php echo $row['productId']; ?>">
+    <input type="hidden" name="quanty" value="<?php echo $row['quanty']; ?>">
+    <button type="submit" name="action" value="decrement">-</button>
+    <?php echo $row['quanty']; ?>
+    <button type="submit" name="action" value="increment">+</button>
+  </form>
+</td>
+                        <td><?php echo $row['price'] * $row['quanty']; ?>р</td>
                     </tr>
+                    <?php
+                    $itemPrice = $row['price'] * $row['quanty'];
+                    $totalPrice += $itemPrice;
+                    ?>
                 <?php endwhile; ?>
             </tbody>
         </table>
         <br><br>
           <div>
-            <span class="itogspan" href = "shop.html">Итоговая цена корзины:</span>
+            <span class="itogspan" href = "shop.html">Итоговая цена корзины:<?php echo $totalPrice; ?></span>
           </div>
             <br>
-            <a class="btn btn-success" href="#" role="button">Заказать</a>
+            <a class="btn btn-success" href="update_nach.php" role="button">Заказать</a>
+
           </div>
     </section>
 
