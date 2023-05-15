@@ -74,11 +74,38 @@ $result = mysqli_query($conn, $sql);
                 <?php endwhile; ?>
             </tbody>
         </table>
+        <br><br>
+          <div>
+            <span class="itogspan" href = "shop.html">Итоговая цена корзины:</span>
+          </div>
+            <br>
+            <a class="btn btn-success" href="#" role="button">Заказать</a>
+          </div>
     </section>
 
     <!-- Остальная разметка страницы -->
 
     <script src="script.js"></script>
 </body>
+<footer class="section-p1">
+        <div class="col">
+          <img class="logo" src="img/logomin.png">
+          <h4>Контакты</h4>
+          <p><strong>Адрес:</strong> Г.Москва Владыкино, ул.Хачатуряна д.17с2</p>
+          <p><strong>Телефон:</strong> +7 926 (289) 05 43</p>
+          <p><strong>Склад:</strong> Г.Лобня ул.Маяковского д.23</p>
+        </div>
 
+            <div class="col">
+              <h4>Информация</h4>
+              <a href=""><p>О нас</p></a>
+              <a href=""><p>Каталог</p></a>
+              <a href=""><p>Главгая</p></a>
+              <a href=""><p>ТП</p></a>
+            </div>
+
+            <div class="copyright">
+              <p>@ 2023, Борзов Валерий, все права защищены.</p>
+            </div>
+      </footer>
 </html>
