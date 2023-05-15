@@ -255,7 +255,7 @@ body {
 }
 
 #product1 .pro .des span {
-  color: #0606063;
+  color: #060606;
   font-size: 12px;
 }
 
@@ -714,4 +714,14 @@ footer .copyright {
 
 #cart table tbody tr td {
   font-size: 16px;
+}
+
+#form_register, #form_auth{
+  width: 300px;
+  margin: 0 auto;
+}
+
+
+#authorized h2{
+  text-align: center;
 }
