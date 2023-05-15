@@ -46,16 +46,6 @@
                 </tr>
 
                 <tr>
-                    <td> Введите капчу: </td>
-                    <td>
-                        <p>
-                            <img src="captcha.php" alt="Изображение капчи" /> <br>
-                            <input type="text" name="captcha" placeholder="Проверочный код">
-                        </p>
-                    </td>
-                </tr>
-
-                <tr>
                     <td colspan="2">
                         <input type="submit" name="btn_submit_auth" value="Войти">
                     </td>
