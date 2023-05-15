@@ -21,10 +21,9 @@ if ($result) {
     $category = $_POST['category']; // Пример значения категории
     $img = $_POST['img']; // Пример значения изображения
     $nalichie = $_POST['nalichie']; // Пример значения наличия
-    $quantity = $_POST['quantity']; // Пример значения количества
     $price = $_POST['price']; // Пример значения цены
 
-    $sql = "INSERT INTO cart (productId, user_Id) VALUES ($productId, $userId)";
+    $sql = "INSERT INTO cart (productId, user_Id) VALUES ($productId, $userId) ON DUPLICATE KEY UPDATE quantity = quantity + 1";
     mysqli_query($conn, $sql);
 
     // Перенаправление пользователя на страницу корзины или другую страницу
