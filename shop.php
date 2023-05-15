@@ -74,7 +74,7 @@ mysqli_close($conn);
             <li><a href = "blog.html">Блог</a></li>
             <li><a href = "about.html">О нас</a></li>
             <li><a href = "contact.html">Контакты</a></li>
-            <li><a href = "cart.html"><i class="far fa-shopping-bag"></i></a></li>
+            <li><a href = "cart.php"><i class="far fa-shopping-bag"></i></a></li>
           </ul>
         </div>
       </section>
@@ -112,10 +112,10 @@ mysqli_close($conn);
             <div class="card-body">
               <h5 class="card-title"><?php foreach (explode(',', $product['nazvanie']) as $ing) echo $ing; ?></h5>
               <p class="card-text"><?php foreach (explode(',', $product['price']) as $ing) echo $ing; ; ?><p>Рублей</p></p>
-              <form method="post" action="addCart.php">
-  <input type="hidden" name="productId" value="<?php echo $product['id']; ?>">
-  <button type="submit" class="btn btn-outline-primary">В корзину</button>
-</form>
+              <form method="post" action="addCart.php"> <!-- Изменено значение атрибута action -->
+            <input type="hidden" name="productId" value="<?php echo $product['id']; ?>">
+            <button type="submit" class="btn btn-outline-primary">В корзину</button>
+          </form>
             </div>
           </a> <!-- Закрывающий тег </a> -->
         </div>

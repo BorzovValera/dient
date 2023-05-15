@@ -74,7 +74,7 @@ mysqli_close($conn);
             <li><a href = "blog.html">Блог</a></li>
             <li><a href = "about.html">О нас</a></li>
             <li><a href = "contact.html">Контакты</a></li>
-            <li><a href = "cart.html"><i class="far fa-shopping-bag"></i></a></li>
+            <li><a href = "cart.php"><i class="far fa-shopping-bag"></i></a></li>
           </ul>
         </div>
       </section>
