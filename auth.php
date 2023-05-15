@@ -16,33 +16,13 @@
     */
     if(isset($_POST["btn_submit_auth"]) && !empty($_POST["btn_submit_auth"])){
 
-        
+
 
         //Проверяем полученную капчу
-        if(isset($_POST["captcha"])){
+
 
             //Обрезаем пробелы с начала и с конца строки
-            $captcha = trim($_POST["captcha"]);
 
-            if(!empty($captcha)){
-
-                //Сравниваем полученное значение с значением из сессии.
-                if(($_SESSION["rand"] != $captcha) && ($_SESSION["rand"] != "")){
-
-                    // Если капча не верна, то возвращаем пользователя на страницу авторизации, и там выведем ему сообщение об ошибке что он ввёл неправильную капчу.
-
-                    $error_message = "<p class='mesage_error'><strong>Ошибка!</strong> Вы ввели неправильную капчу </p>";
-
-                    // Сохраняем в сессию сообщение об ошибке.
-                    $_SESSION["error_messages"] = $error_message;
-
-                    //Возвращаем пользователя на страницу авторизации
-                    header("HTTP/1.1 301 Moved Permanently");
-                    header("Location: ".$address_site."/form_auth.php");
-
-                    //Останавливаем скрипт
-                    exit();
-                }
 
             }else{
 
@@ -161,12 +141,12 @@
 
                 //Проверяем, если в базе нет пользователя с такими данными, то выводим сообщение об ошибке
                 if($result_query_select->num_rows == 1){
-                    
+
                     $user = $result_query_select->fetch_assoc();
-        
+
                     // Получаем userId
                     $userId = $user['id'];
-                    
+
                     // Сохраняем userId в сессии
                     $_SESSION['userId'] = $userId;
 
@@ -192,12 +172,7 @@
                     exit();
                 }
             }
-        }else{
-            //Если капча не передана
-            exit("<p><strong>Ошибка!</strong> Отсутствует проверочный код, то есть код капчи. Вы можете перейти на <a href=".$address_site."> главную страницу </a>.</p>");
-        }
 
 
-    }else{
-        exit("<p><strong>Ошибка!</strong> Вы зашли на эту страницу напрямую, поэтому нет данных для обработки. Вы можете перейти на <a href=".$address_site."> главную страницу </a>.</p>");
-    }
+
+    
