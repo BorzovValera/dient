@@ -15,7 +15,7 @@ if (isset($_GET['page'])) {
 }
 
 // определяем количество записей в базе данных
-$count_query = "SELECT COUNT(*) FROM tovar";
+$count_query = "SELECT COUNT(*) FROM tovar WHERE category = 'Расходники'";
 $count_result = mysqli_query($conn, $count_query);
 $count_row = mysqli_fetch_row($count_result);
 $count = $count_row[0];
@@ -27,7 +27,7 @@ $pages = ceil($count / $limit);
 $offset = ($page - 1) * $limit;
 
 // Формируем запрос SQL для выборки товаров с учетом смещения и лимита
-$sql = "SELECT * FROM tovar";
+$sql = "SELECT id, nazvanie, category, price, img, nalichie, opisanie FROM tovar WHERE category = 'Расходники'";
 if ($search) {
   $sql .= " WHERE nazvanie LIKE '%" . mysqli_real_escape_string($conn, '%'.$search.'%') . "%'";
 }
@@ -90,16 +90,16 @@ mysqli_close($conn);
       <section id="product1" class="section-p1">
       <ul id="navbar" class="categorynav">
       <li><a href = "shop.php">Все</a></li>
-        <li><a href = "shop1.php">Инструменты</a></li>
+      <li><a href = "shop1.php">Инструменты</a></li>
         <li><a href = "shop2.php">Расходники</a></li>
         <li><a href = "shop3.php">Стройматериалы</a></li>
         <li><a href = "shop4.php">Сантехника</a></li>
       </ul>
 
-      <form action="" method="get">
+      <!-- <form action="" method="get">
   <input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>">
   <button type="submit">Найти</button>
-</form>
+</form> -->
 
 <div class="container my-5">
   <h1 class="text-center my-5">Товары</h1>
