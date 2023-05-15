@@ -1,7 +1,3 @@
-<?php
-    //Подключение шапки
-    require_once("layout_header.php");
-?>
 <!-- Блок для вывода сообщений -->
 <div class="block_for_messages">
     <?php
@@ -28,71 +24,14 @@
     //иначе выводим сообщение о том, что он уже зарегистрирован
     if(!isset($_SESSION["email"]) && !isset($_SESSION["password"])){
 ?>
-<section id="header">
-        <a href = "index.php"><img src= "img/logo3.png" width="200" height="50" class = "logo" alt= "not found"></a>
 
-        <div>
-          <ul id = "navbar">
-            <li><a href = "index.php">Главная</a></li>
-            <li><a href = "shop.html">Каталог</a></li>
-            <li><a href = "blog.html">Блог</a></li>
-            <li><a href = "about.html">О нас</a></li>
-            <li><a class="active" href = "contact.html">Контакты</a></li>
-            <li><a href = "cart.html"><i class="far fa-shopping-bag"></i></a></li>
-          </ul>
-        </div>
-        <style>
-        #header {
-display: flex;
-align-items: center;
-justify-content: space-between;
-padding: 20px 80px;
-background: #E3E6F3;
-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
-z-index: 999;
-position: sticky;
-top: 0;
-left: 0;
-}
+<head>
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+</head>
 
-#navbar {
-display: flex;
-align-items: center;
-justify-content: center;
-}
-
-#navbar li {
-list-style: none;
-padding: 0 20px;
-position: relative;
-}
-
-#navbar li a {
-text-decoration: none;
-font-size: 16px;
-font-weight: 600;
-color: #1a1a1a;
-transition: 0.3s ease;
-}
-#navbar li a:hover,
-#navbar li a.active {
-color: #088178;
-}
-
-#navbar li a.active::after,
-#navbar li a:hover::after {
-content: "";
-width: 30%;
-height: 2px;
-background: #088178;
-position: absolute;
-bottom: -4px;
-left: 20px;
-}
-        </style>
-      </section>
         <div id="form_register">
-            <h2>Регистрация</h2>
+            <h2>Форма регистрации</h2>
 
             <form action="register.php" method="post" name="form_register">
                 <table>
@@ -151,5 +90,5 @@ left: 20px;
 <?php
     }
 
-
+    
 ?>
