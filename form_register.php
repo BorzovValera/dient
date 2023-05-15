@@ -64,15 +64,7 @@
                             <span id="valid_password_message" class="mesage_error"></span>
                         </td>
                     </tr>
-                    <tr>
-                        <td> Введите капчу: </td>
-                        <td>
-                            <p>
-                                <img src="captcha.php" alt="Капча" /> <br><br>
-                                <input type="text" name="captcha" placeholder="Проверочный код" required="required">
-                            </p>
-                        </td>
-                    </tr>
+                    
                     <tr>
                         <td colspan="2">
                             <input type="submit" name="btn_submit_register" value="Зарегистрироватся!">
