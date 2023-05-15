@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Хост: 127.0.0.1:3306
--- Время создания: Май 15 2023 г., 15:17
--- Версия сервера: 5.7.39
--- Версия PHP: 7.2.34
+-- Хост: 127.0.0.1
+-- Время создания: Май 16 2023 г., 00:18
+-- Версия сервера: 10.4.28-MariaDB
+-- Версия PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,17 +24,30 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `cart`
+--
+
+CREATE TABLE `cart` (
+  `id` int(11) NOT NULL,
+  `productId` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `quanty` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `tovar`
 --
 
 CREATE TABLE `tovar` (
   `id` int(11) NOT NULL,
-  `nazvanie` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `category` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nazvanie` varchar(255) NOT NULL,
+  `category` varchar(255) NOT NULL,
   `price` int(11) NOT NULL,
-  `img` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `img` varchar(255) NOT NULL,
   `nalichie` int(11) NOT NULL,
-  `opisanie` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `opisanie` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -42,8 +55,8 @@ CREATE TABLE `tovar` (
 --
 
 INSERT INTO `tovar` (`id`, `nazvanie`, `category`, `price`, `img`, `nalichie`, `opisanie`) VALUES
-(1, 'Отвертка Xiaomi электрическая', 'Инструменты', 999, 'img/product10.jpg', 43, 'Аккумуляторная отвертка от известного немецкого производителя Wiha выпущенная в сотрудничестве с Xiaomi, решит все ваши сборочные и ремонтные проблемы.'),
-(2, 'Аккумуляторная дрель-шуруповерт Bort BAB', 'Инструменты', 3990, 'img/product3.jpg', 8, 'Шуруповерт Bort BAB-10.8-P - отличный и легкий инструмент для дома. Li-Ion батарея обеспечивает продолжительную и бесперебойную работу.'),
+(1, 'Отвертка Xiaomi электрическая', 'Инструменты', 999, 'img/product10.jpg', 40, 'Аккумуляторная отвертка от известного немецкого производителя Wiha выпущенная в сотрудничестве с Xiaomi, решит все ваши сборочные и ремонтные проблемы.'),
+(2, 'Аккумуляторная дрель-шуруповерт Bort BAB', 'Инструменты', 3990, 'img/product3.jpg', 6, 'Шуруповерт Bort BAB-10.8-P - отличный и легкий инструмент для дома. Li-Ion батарея обеспечивает продолжительную и бесперебойную работу.'),
 (3, 'Лопата штыковая FISKARS Solid 1026', 'Инструменты', 1500, 'img/product7.jpg', 20, 'Холоднокатанная борсодержащая сталь, из которой выполнена рабочая часть, обеспечивает высокую степень упругости. Благодаря закалке инструмент надежен при проведении тяжелых видов работ.'),
 (4, 'Молоток отбойный GSH 2000Вт, 62Дж, 1000уд/м', 'Инструменты', 25000, 'img/product2.jpg', 2, 'Предназначен для забивания гвоздей, разбивания керамической плитки, тонкого слоя бетона, придания формы металлическим трубкам, для множества других целей.'),
 (5, 'Шпатель', 'Инструменты', 290, 'img/product4.jpg', 4, 'Предназначен для нанесения шпаклевок и других строительных растворов на широкий шпатель, а также для заделки небольших трещин и швов.'),
@@ -76,9 +89,47 @@ INSERT INTO `tovar` (`id`, `nazvanie`, `category`, `price`, `img`, `nalichie`, `
 (32, 'Сифон для раковины Wirquin Virplast ', 'Сантехника', 790, 'img/productsant7.jpg', 65, 'Предназначен для организации слива воды для раковины, материалы долговечны и изготовлены из качественных материалов, сведение к минимуму заторы и загрязненье слива раковины.'),
 (33, 'Сушилка для рук Ballu Drying Master 2000 Вт', 'Сантехника', 9600, 'img/productsant8.jpg', 43, 'Идеальный угол обдува рук – 30°. Активный инфракрасный сенсор. Отличный сенсор. Прочный корпус, который не пожелтеет со временем. В комплекте монтажный шаблон для быстрой установки имеет класс электрозащиты - II');
 
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `email_status` tinyint(1) NOT NULL DEFAULT 0,
+  `password` varchar(100) DEFAULT NULL,
+  `cartId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `users`
+--
+
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `email_status`, `password`, `cartId`) VALUES
+(2, 'Саня', 'Алешня', 'dient@mail.ru', 0, '0e0895c0f33c682a0a92c168ffe41c2c', 0),
+(4, 'Игорь', 'Войтенко', 'player1@mail.ru', 0, '4828140403f6eaee3b5af62a0b09ae61', 0),
+(5, 'Валерий', 'Борзов', 'utrecho@mail.ru', 0, '981d6949c5ec758200dd760a6f3b9263', 0),
+(6, 'Борзов', 'Валерий', 'ban@mail.com', 0, '4828140403f6eaee3b5af62a0b09ae61', 0),
+(7, 'SANYA', 'ALESHNA', 'glent@mail.ru', 0, 'd9a6e16896c2a6f3a2ffb6637f5cbb56', 0),
+(8, 'Sony', 'Bvc', '', 0, '', 0),
+(10, 'Sony', 'Bvc', 'adg97487@gmail.com', 0, '4828140403f6eaee3b5af62a0b09ae61', 0),
+(11, 'Bivis', 'Sanya', 'bivissanya@gmail.com', 0, '4828140403f6eaee3b5af62a0b09ae61', 0);
+
 --
 -- Индексы сохранённых таблиц
 --
+
+--
+-- Индексы таблицы `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `cart_user_fk` (`user_id`),
+  ADD KEY `productId` (`productId`);
 
 --
 -- Индексы таблицы `tovar`
@@ -87,14 +138,38 @@ ALTER TABLE `tovar`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
 -- AUTO_INCREMENT для сохранённых таблиц
 --
+
+--
+-- AUTO_INCREMENT для таблицы `cart`
+--
+ALTER TABLE `cart`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT для таблицы `tovar`
 --
 ALTER TABLE `tovar`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+
+--
+-- Ограничения внешнего ключа сохраненных таблиц
+--
+
+--
+-- Ограничения внешнего ключа таблицы `cart`
+--
+ALTER TABLE `cart`
+  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`productId`) REFERENCES `tovar` (`id`),
+  ADD CONSTRAINT `cart_user_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
