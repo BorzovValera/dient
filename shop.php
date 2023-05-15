@@ -112,7 +112,10 @@ mysqli_close($conn);
             <div class="card-body">
               <h5 class="card-title"><?php foreach (explode(',', $product['nazvanie']) as $ing) echo $ing; ?></h5>
               <p class="card-text"><?php foreach (explode(',', $product['price']) as $ing) echo $ing; ; ?><p>Рублей</p></p>
-              <button type="button" class="btn btn-outline-primary">В корзину</button>
+              <form method="post" action="addCart.php">
+  <input type="hidden" name="productId" value="<?php echo $product['id']; ?>">
+  <button type="submit" class="btn btn-outline-primary">В корзину</button>
+</form>
             </div>
           </a> <!-- Закрывающий тег </a> -->
         </div>

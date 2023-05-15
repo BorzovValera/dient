@@ -161,6 +161,15 @@
 
                 //Проверяем, если в базе нет пользователя с такими данными, то выводим сообщение об ошибке
                 if($result_query_select->num_rows == 1){
+                    
+                    $user = $result_query_select->fetch_assoc();
+        
+                    // Получаем userId
+                    $userId = $user['id'];
+                    
+                    // Сохраняем userId в сессии
+                    $_SESSION['userId'] = $userId;
+
 
                     // Если введенные данные совпадают с данными из базы, то сохраняем логин и пароль в массив сессий.
                     $_SESSION['email'] = $email;
