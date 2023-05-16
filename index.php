@@ -1,6 +1,7 @@
 <?php
 
 include('dbconnect.php');
+session_start();
 
 $min = 1;
 $max = 26;
@@ -77,8 +78,31 @@ mysqli_close($conn);
             <li><a href = "blog.html">Блог</a></li>
             <li><a href = "about.html">О нас</a></li>
             <li><a href = "contact.html">Контакты</a></li>
-            <li><a href = "form_auth.php">Вход</a></li>
+            <ul>
+    <?php
+    if (isset($_SESSION['userId'])) {
+        // Если пользователь авторизован, показываем кнопку выхода
+        echo '<li><a href="form_auth.php?logout=true">Выход</a></li>';
+    } else {
+        // Если пользователь не авторизован, показываем ссылку на вход
+        echo '<li><a href="form_auth.php">Вход</a></li>';
+    }
+    ?>
+</ul>
             <li><a href = "form_register.php">Регистрация</a></li>
+            <?php
+            if (isset($_SESSION['userId'])) {
+// Получение роли пользователя
+$userRole = $_SESSION['role'];
+
+// Проверка роли пользователя
+if ($userRole === 'admin') {
+  echo '<li><a href = "admin_category.php">Админ панель</a></li>';
+}
+            } else {
+              
+            }
+?>
             <li><a href = "cart.php"><i class="far fa-shopping-bag"></i></a></li>
           </ul>
         </div>
@@ -141,7 +165,7 @@ mysqli_close($conn);
                 </div>
                 <form method="post" action="addCart.php"> <!-- Изменено значение атрибута action -->
             <input type="hidden" name="productId" value="<?php echo $productOne['id']; ?>">
-            <button type="submit" class="btn btn-outline-primary">В корзину</button>
+            <button type="submit" class="fa fa-shopping-cart cart"></button>
           </form>
             </div>
 
@@ -154,7 +178,7 @@ mysqli_close($conn);
                 </div>
                 <form method="post" action="addCart.php"> <!-- Изменено значение атрибута action -->
             <input type="hidden" name="productId" value="<?php echo $productTwo['id']; ?>">
-            <button type="submit" class="btn btn-outline-primary">В корзину</button>
+            <button type="submit" class="fa fa-shopping-cart cart"></button>
           </form>
             </div>
 
@@ -167,7 +191,7 @@ mysqli_close($conn);
                 </div>
                 <form method="post" action="addCart.php"> <!-- Изменено значение атрибута action -->
             <input type="hidden" name="productId" value="<?php echo $productThree['id']; ?>">
-            <button type="submit" class="btn btn-outline-primary">В корзину</button>
+            <button type="submit" class="fa fa-shopping-cart cart"></button>
           </form>
             </div>
 
@@ -180,7 +204,7 @@ mysqli_close($conn);
                 </div>
                 <form method="post" action="addCart.php"> <!-- Изменено значение атрибута action -->
             <input type="hidden" name="productId" value="<?php echo $productFour['id']; ?>">
-            <button type="submit" class="btn btn-outline-primary">В корзину</button>
+            <button type="submit" class="fa fa-shopping-cart cart"></button>
           </form>
             </div>
 

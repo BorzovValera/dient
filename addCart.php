@@ -17,11 +17,11 @@ if ($result) {
 
     // Вставка записи в таблицу `cart`
     $productId = $_POST['productId']; // Пример значения productId
-    $nazvanie = $_POST['nazvanie']; // Пример значения названия
-    $category = $_POST['category']; // Пример значения категории
-    $img = $_POST['img']; // Пример значения изображения
-    $nalichie = $_POST['nalichie']; // Пример значения наличия
-    $price = $_POST['price']; // Пример значения цены
+    // $nazvanie = $_POST['nazvanie']; // Пример значения названия
+    // $category = $_POST['category']; // Пример значения категории
+    // $img = $_POST['img']; // Пример значения изображения
+    // $nalichie = $_POST['nalichie']; // Пример значения наличия
+    // $price = $_POST['price']; // Пример значения цены
 
     $sql = "SELECT * FROM cart WHERE productId = $productId AND user_Id = $userId";
 $result = mysqli_query($conn, $sql);

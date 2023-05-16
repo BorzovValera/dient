@@ -107,7 +107,10 @@ mysqli_close($conn);
     <h6><?php echo $product['category']; ?></h6>
     <h4><?php echo $product['nazvanie']; ?></h4>
     <h2><?php echo $product['price']; ?></h2>
-    <button class="normal">В корзину</button>
+    <form method="post" action="addCart.php"> <!-- Изменено значение атрибута action -->
+            <input type="hidden" name="productId" value="<?php echo $product['id']; ?>">
+            <button type="submit" class="normal">В корзину</button>
+          </form>
     <h4>Описание товара</h4>
     <span><?php echo $product['opisanie']; ?></span>
 </div>
@@ -127,7 +130,10 @@ mysqli_close($conn);
                   <h5><?php echo $productOne['nazvanie']; ?></h5>
                   <h4><?php echo $productOne['price']; ?></h4>
                 </div>
-                <a href="#"><i class="fa fa-shopping-cart cart"></i></a>
+                <form method="post" action="addCart.php"> <!-- Изменено значение атрибута action -->
+            <input type="hidden" name="productId" value="<?php echo $productOne['id']; ?>">
+            <button type="submit" class="fa fa-shopping-cart cart"></button>
+          </form>
             </div>
 
             <div class="pro">
@@ -137,7 +143,10 @@ mysqli_close($conn);
                   <h5><?php echo $productTwo['nazvanie']; ?></h5>
                   <h4><?php echo $productTwo['price']; ?></h4>
                 </div>
-                <a href="#"><i class="fa fa-shopping-cart cart"></i></a>
+                <form method="post" action="addCart.php"> <!-- Изменено значение атрибута action -->
+            <input type="hidden" name="productId" value="<?php echo $productTwo['id']; ?>">
+            <button type="submit" class="fa fa-shopping-cart cart"></button>
+          </form>
             </div>
 
             <div class="pro">
@@ -147,7 +156,10 @@ mysqli_close($conn);
                   <h5><?php echo $productThree['nazvanie']; ?></h5>
                   <h4><?php echo $productThree['price']; ?></h4>
                 </div>
-                <a href="#"><i class="fa fa-shopping-cart cart"></i></a>
+                <form method="post" action="addCart.php"> <!-- Изменено значение атрибута action -->
+            <input type="hidden" name="productId" value="<?php echo $productThree['id']; ?>">
+            <button type="submit" class="fa fa-shopping-cart cart"></button>
+          </form>
             </div>
 
             <div class="pro">
@@ -157,7 +169,10 @@ mysqli_close($conn);
                   <h5><?php echo $productFour['nazvanie']; ?></h5>
                   <h4><?php echo $productFour['price']; ?></h4>
                 </div>
-                <a href="#"><i class="fa fa-shopping-cart cart"></i></a>
+                <form method="post" action="addCart.php"> <!-- Изменено значение атрибута action -->
+            <input type="hidden" name="productId" value="<?php echo $productFour['id']; ?>">
+            <button type="submit" class="fa fa-shopping-cart cart"></button>
+          </form>
             </div>
 
         </div>

@@ -146,9 +146,11 @@
 
                     // Получаем userId
                     $userId = $user['id'];
+                    $userRole = $user['role'];
 
                     // Сохраняем userId в сессии
                     $_SESSION['userId'] = $userId;
+                    $_SESSION['role'] = $userRole;
 
 
                     // Если введенные данные совпадают с данными из базы, то сохраняем логин и пароль в массив сессий.

@@ -216,9 +216,9 @@
             }
 
             // (4) Место для кода добавления пользователя в БД
-
+            $role = user;
             //Запрос на добавления пользователя в БД
-            $result_query_insert = $mysqli->query("INSERT INTO `users` (first_name, last_name, email, password) VALUES ('".$first_name."', '".$last_name."', '".$email."', '".$password."')");
+            $result_query_insert = $mysqli->query("INSERT INTO `users` (first_name, last_name, email, role, password) VALUES ('".$first_name."', '".$last_name."', '".$email."', '".$role."', '".$password."')");
 
             if(!$result_query_insert){
                 // Сохраняем в сессию сообщение об ошибке.
